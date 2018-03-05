@@ -1,0 +1,44 @@
+package Usefull_Classes;
+
+public class PidRegulator {
+	
+	private double target =50;
+	
+	private double kp=1;
+	private double ki=1;
+	private double kd=1;
+	
+	private double integral=0;
+	private double lastError=0;
+	
+	public void setTarget(double targetVal) {
+		this.target=targetVal;
+	}
+	
+	public void setProportional(double propoVal) {
+		this.kp=propoVal;
+	}
+	
+	public void setIntegral(double IntegrVal) {
+		this.ki=IntegrVal;
+	}
+	
+	public void setDerivative(double derivVal) {
+		this.kd=derivVal;
+	}
+	
+	public double CalcReg(double measure) {
+				
+		double error= this.target-measure;		
+		this.integral+=error;		
+		double derivative= error-lastError;
+		
+		double Correction= (error*this.kp)+(this.integral*this.ki)+(derivative*this.kd);
+		
+		this.lastError=error;
+		
+		return Correction;
+	}
+	
+
+}
